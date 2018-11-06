@@ -25,7 +25,7 @@ class SlackClient:
         return requests.post(ch_url, json={'text': msg})
 
     async def throttle_pubs(self):
-        """Process the publish queue, and throttle publish messages to the rate defined in pub_rate"""
+        """Process the publish queue, and throttle publish messages based on the publish rate"""
         while True:
             ch, msg = await self._pub_throttle.get()  # Blocks until we get an item
             resp = await self._publish_to_channel(ch, msg)
